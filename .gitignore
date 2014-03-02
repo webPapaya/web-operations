@@ -5,6 +5,9 @@
 # bower
 /bower_components
 
+# node
+/node_modules
+
 # jekyll
 /_site
-
+/css/*.css

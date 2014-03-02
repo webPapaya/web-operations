@@ -1,0 +1,80 @@
+// Dependencies
+@import "../bower_components/bootstrap/less/bootstrap";
+@import "syntax";
+
+// Variables
+@border-color: #ff0000;
+@link-color: lighten(#ff0000, 20%);
+@link-hover-color: #ff0000;
+
+// Styles
+body {
+    padding-bottom: 4em;
+}
+
+table {
+    .table;
+    .table-hover;
+    .table-bordered;
+}
+
+.jumbotron {
+    color: #fff;
+    background:
+        radial-gradient(black 15%, transparent 16%) 0 0,
+        radial-gradient(black 15%, transparent 16%) 8px 8px,
+        radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+        radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+    background-color:#282828;
+    background-size:16px 16px;
+
+    p {
+        color: #ccc;
+    }
+}
+
+.wo-copy {
+    margin-top: 2em;
+}
+
+.wo-nav-sidebar {
+    li > a {
+        padding: 0.4em 0.8em;
+
+        font-size: 1.2em;
+
+        border-left: 2px solid #fff;
+    }
+    li.active > a {
+        border-left: 2px solid @border-color;
+
+        &:hover, &:active, &:focus {
+            border-left: 1px solid @border-color;
+
+            background: none;
+        }
+    }
+
+    .nav {
+        margin-bottom: 0.8em;
+    }
+    .nav > li > a {
+        padding: 0em 0.8em;
+
+        color: #888;
+        text-indent: 1.0em;
+        font-size: 1em;
+
+        &:hover, &:active {
+            border-left: 1px solid @border-color;
+
+            color: darken(#888, 20%);
+
+            background: none;
+        }
+    }
+    .nav > li.active > a {
+        color: @link-hover-color;
+    }
+
+}

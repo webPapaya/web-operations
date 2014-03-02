@@ -1,0 +1,27 @@
+{
+  "name": "webops",
+  "version": "0.1.0",
+  "description": "Web Operations",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eliias/web-operations.git"
+  },
+  "keywords": [
+    "Web",
+    "Operations",
+    "MMT"
+  ],
+  "author": "Hannes Moser <hannes@impossiblearts.com>",
+  "license": "Creative Commons Attribution 4.0 International License",
+  "bugs": {
+    "url": "https://github.com/eliias/web-operations/issues"
+  },
+  "homepage": "https://github.com/eliias/web-operations",
+  "devDependencies": {
+    "grunt": "^0.4.2"
+  }
+}

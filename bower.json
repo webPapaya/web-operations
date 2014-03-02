@@ -1,0 +1,26 @@
+{
+  "name": "Web Operations",
+  "version": "0.1.0",
+  "homepage": "http://web-operations.github.io",
+  "authors": [
+    "Hannes Moser <hannes@impossiblearts.com>"
+  ],
+  "description": "Web Operations",
+  "main": "index.html",
+  "keywords": [
+    "Web",
+    "Operations",
+    "MMT"
+  ],
+  "license": "Creative Commons Attribution 4.0 International License",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.1.1"
+  }
+}
