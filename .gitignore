@@ -1,0 +1,9 @@
+# IDE
+/.idea
+/atlassian-ide-plugin.xml
+
+# bower
+/bower_components
+
+# jekyll
+/_site
