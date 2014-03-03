@@ -174,19 +174,19 @@ Wenn Sie die Git Installation von http://git-scm.com nutzen, können Sie via
 [PuTTYgen](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html)
 zurückgreifen.
 
-## <a name="basic-copy">Copy
+## <a name="basic-copy"></a>Copy
 
 ### Lokal
 ### scp
 ### rsync
 
-## <a name="basic-dns">DNS
+## <a name="basic-dns"></a>DNS
 
 ### Lokale hosts Datei
 ### Eigener DNS Server
 ### Globale DNS Server
 
-## <a name="basic-firewall">Firewall
+## <a name="basic-firewall"></a>Firewall
 
 ### UFW
 http://wiki.ubuntuusers.de/ufw
