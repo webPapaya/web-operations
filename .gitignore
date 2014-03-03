@@ -3,7 +3,7 @@
 /atlassian-ide-plugin.xml
 
 # bower
-/bower_components
+#/bower_components
 
 # node
 /node_modules
