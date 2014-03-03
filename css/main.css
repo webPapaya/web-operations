@@ -6104,17 +6104,15 @@ table > thead > tr > td {
   font-size: 1.2em;
   border-left: 2px solid #fff;
 }
-.nav li.active > a {
-  border-left: 2px solid #ff0000;
-}
-.nav li.active > a:hover,
-.nav li.active > a:active,
-.nav li.active > a:focus {
+.nav li > a:hover,
+.nav li > a:active,
+.nav li > a:focus {
   border-left: 1px solid #ff0000;
   background: none;
 }
-.nav .nav {
-  margin-bottom: 0.8em;
+.nav li.active > a {
+  color: #ff0000;
+  border-left: 2px solid #ff0000;
 }
 .nav .nav > li > a {
   padding: 0em 0.8em;
@@ -6123,11 +6121,16 @@ table > thead > tr > td {
   font-size: 1em;
 }
 .nav .nav > li > a:hover,
-.nav .nav > li > a:active {
+.nav .nav > li > a:active,
+.nav .nav > li > a:focus {
   border-left: 1px solid #ff0000;
   color: #555555;
   background: none;
 }
 .nav .nav > li.active > a {
   color: #ff0000;
+  border-left: 2px solid #ff0000;
+}
+.nav .nav {
+  margin-bottom: 0.8em;
 }
