@@ -11,3 +11,4 @@
 # jekyll
 /_site
 /css/*.css
+!/css/main.css
