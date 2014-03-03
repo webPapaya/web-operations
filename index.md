@@ -7,7 +7,7 @@ title: Web Operations
 ---
 
 A german language textbook on Web Operations. Developed on github,
-published at [http://web-operations.github.io](http://web-operations.github.io).
+published at http://eliias.github.io/web-operations.
 
 ## <a name="basic-unix-shell"></a>UNIX-Shell
 Die Unix-Shell ist das Werkzeug das Sie benötigen um in die Welt der Server
@@ -96,6 +96,42 @@ Die oktale Angabe von Berechtigungen kann wie folgt vorgenommen werden.
 
 Mehr Informationen zum SetUID-Bit finden Sie hier http://de.wikipedia.org/wiki/Setuid.
 
+Es gibt jedoch noch eine wesentlich elegantere und auch besser lesbare Variante
+um Berechtigungen zu setzen.
+
+    chmod ugo-rwx,ug+rwX,o+r .gitignore
+
+Die Syntax ist sehr einfach und wenn man erst einmal die Abkürzungen kennt, auch
+ganz und gar logisch.
+
+| Alias     | Beschreibung                                      |
+| --------- | ------------------------------------------------- |
+| u         | user (Besitzer)                                   |
+| g         | group (Gruppe)                                    |
+| o         | others (Alle anderen)                             |
+
+| Privilege | Beschreibung                                      |
+| --------- | ------------------------------------------------- |
+| r         | read                                              |
+| w         | write                                             |
+| x         | execute                                           |
+
+Mittels *chmod* kann ich nun als Rechte für User, Gruppe und Andere hinzufügen **+**
+oder auch wieder wegnehmen **-**.
+In obigem Beispiel kommt zusätzlich noch eine Variation vor die es sich lohnt
+näher zu betrachten.
+
+    ug+rwX
+
+Das große **X** bedeutet in diesem Fall, dass für alle Ordner ein Executable Bit
+gesetzt werden soll, damit diese auch gelesen (geöffnet) werden können.
+
+Weitere wichtige Informationen z.B. zu dem [Sticky Bit](http://en.wikipedia.org/wiki/Sticky_bit)
+gibt es in jeder *NIX Doku zu finden.
+
+## <a name="basic-pakete"></a>Pakete
+### Aptitude
+
 ## <a name="basic-ssh"></a>SSH
 
 > Secure Shell oder SSH bezeichnet sowohl ein Netzwerkprotokoll als auch entsprechende Programme, mit deren Hilfe man auf eine sichere Art und Weise eine verschlüsselte Netzwerkverbindung mit einem entfernten Gerät herstellen kann.
@@ -137,3 +173,58 @@ Wenn Sie die Git Installation von http://git-scm.com nutzen, können Sie via
 *Git Bash* auch *ssh-keygen* nutzen. Alternativ müssen sie auf Tools wie
 [PuTTYgen](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html)
 zurückgreifen.
+
+## <a name="basic-copy">Copy
+
+### Lokal
+### scp
+### rsync
+
+## <a name="basic-dns">DNS
+
+### Lokale hosts Datei
+### Eigener DNS Server
+### Globale DNS Server
+
+## <a name="basic-firewall">Firewall
+
+### UFW
+http://wiki.ubuntuusers.de/ufw
+
+### IPTables
+https://help.ubuntu.com/community/IptablesHowTo
+
+## <a name="basic-backup"></a>Backup
+
+### System backups with rsync (and backuppc)
+https://help.ubuntu.com/community/BackupPC
+
+### Database
+
+#### Für den täglichen Gebrauch
+http://sourceforge.net/projects/automysqlbackup/
+
+#### LVM Snapshots
+http://www.lullabot.com/blog/article/mysql-backups-using-lvm-snapshots
+
+## Cronjob
+### Crontab
+### /etc/cron.d
+
+## Log
+### Log Rotate
+https://www.digitalocean.com/community/articles/how-to-manage-log-files-with-logrotate-on-ubuntu-12-10
+
+## Upstart
+### Am Beispiel node.js
+
+## Proxies
+### Proxy requests via Apache zu Node.js server
+
+## Mail
+
+### ISPmail Tutorial(s)
+https://workaround.org/ispmail
+
+## Nette Kleinigkeiten
+### Figlets
