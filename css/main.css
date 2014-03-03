@@ -6089,38 +6089,45 @@ table > thead > tr > td {
 .jumbotron p {
   color: #ccc;
 }
+.affix-top {
+  position: relative;
+}
+.affix {
+  position: fixed;
+  top: 2em;
+}
 .wo-copy {
   margin-top: 2em;
 }
-.wo-nav-sidebar li > a {
+.nav li > a {
   padding: 0.4em 0.8em;
   font-size: 1.2em;
   border-left: 2px solid #fff;
 }
-.wo-nav-sidebar li.active > a {
+.nav li.active > a {
   border-left: 2px solid #ff0000;
 }
-.wo-nav-sidebar li.active > a:hover,
-.wo-nav-sidebar li.active > a:active,
-.wo-nav-sidebar li.active > a:focus {
+.nav li.active > a:hover,
+.nav li.active > a:active,
+.nav li.active > a:focus {
   border-left: 1px solid #ff0000;
   background: none;
 }
-.wo-nav-sidebar .nav {
+.nav .nav {
   margin-bottom: 0.8em;
 }
-.wo-nav-sidebar .nav > li > a {
+.nav .nav > li > a {
   padding: 0em 0.8em;
   color: #888;
   text-indent: 1.0em;
   font-size: 1em;
 }
-.wo-nav-sidebar .nav > li > a:hover,
-.wo-nav-sidebar .nav > li > a:active {
+.nav .nav > li > a:hover,
+.nav .nav > li > a:active {
   border-left: 1px solid #ff0000;
   color: #555555;
   background: none;
 }
-.wo-nav-sidebar .nav > li.active > a {
+.nav .nav > li.active > a {
   color: #ff0000;
 }

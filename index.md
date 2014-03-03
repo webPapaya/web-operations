@@ -3,13 +3,13 @@ layout: default
 title: Web Operations
 ---
 
-# Einführung
+# <a name="basic"></a>Einführung
 ---
 
 A german language textbook on Web Operations. Developed on github,
 published at [http://web-operations.github.io](http://web-operations.github.io).
 
-## UNIX-Shell
+## <a name="basic-unix-shell"></a>UNIX-Shell
 Die Unix-Shell ist das Werkzeug das Sie benötigen um in die Welt der Server
 einzusteigen. Um mit der Arbeit beginnen zu können sollten Sie sich zumindest
 einen minimalen Schatz an Shell Kommandos aneignen.
@@ -96,7 +96,7 @@ Die oktale Angabe von Berechtigungen kann wie folgt vorgenommen werden.
 
 Mehr Informationen zum SetUID-Bit finden Sie hier http://de.wikipedia.org/wiki/Setuid.
 
-## SSH
+## <a name="basic-ssh"></a>SSH
 
 > Secure Shell oder SSH bezeichnet sowohl ein Netzwerkprotokoll als auch entsprechende Programme, mit deren Hilfe man auf eine sichere Art und Weise eine verschlüsselte Netzwerkverbindung mit einem entfernten Gerät herstellen kann.
 
