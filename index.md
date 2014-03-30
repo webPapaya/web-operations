@@ -129,8 +129,53 @@ gesetzt werden soll, damit diese auch gelesen (geöffnet) werden können.
 Weitere wichtige Informationen z.B. zu dem [Sticky Bit](http://en.wikipedia.org/wiki/Sticky_bit)
 gibt es in jeder *NIX Doku zu finden.
 
+## <a name="basic-superuser"></a>Superuser
+http://wiki.ubuntuusers.de/sudo
+
 ## <a name="basic-pakete"></a>Pakete
 ### Aptitude
+> Das Computerprogramm aptitude ist ein Frontend für das Advanced Packaging Tool (APT). Es zeigt eine Liste von Software-Paketen an und erlaubt dem Benutzer, interaktiv Pakete zu verwalten. Ursprünglich wurde es für die Debian GNU/Linux-Distribution erstellt, taucht aber auch in RPM-basierten Distributionen, wie zum Beispiel Conectiva, auf.
+
+Kurz gesagt, wir verwenden *Aptitude* um Software auf unserem Server zu verwalten.
+
+#### Beispiele
+
+Install
+
+    apt-get install ssh
+    apt-get install apache2
+    apt-get install php5
+    apt-get isntall mysql-server
+    apt-get install php5-mysql
+    apt-get install php5-intl
+    apt-get install git
+
+Remove
+
+    apt-get remove php5
+    apt-get remove mysql
+    apt-get remove apache2
+
+Update aller Paketrepositories
+
+    apt-get update
+
+Upgrade aller Pakete
+
+    apt-get upgrade
+
+#### Korrupte Pakete reparieren
+
+Wenn gar nichts mehr geht, kann man sich mit folgenden Befehlen abhelfen.
+Beachten Sie, dass dabei alle Konfigurationen der betroffenen Pakete verlorengehen.
+
+    apt-get remove --purge mysql-server mysql-client mysql-common
+    apt-get install --reinstall mysql-server mysql-client mysql-common
+
+    apt-get remove --purge php*
+    apt-get install --reinstall php5
+
+    apt-get install --reinstall phpmyadmin
 
 ## <a name="basic-ssh"></a>SSH
 
