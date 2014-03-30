@@ -164,6 +164,7 @@ Upgrade aller Pakete
 
     apt-get upgrade
 
+
 #### Korrupte Pakete reparieren
 
 Wenn gar nichts mehr geht, kann man sich mit folgenden Befehlen abhelfen.
@@ -172,10 +173,16 @@ Beachten Sie, dass dabei alle Konfigurationen der betroffenen Pakete verlorengeh
     apt-get remove --purge mysql-server mysql-client mysql-common
     apt-get install --reinstall mysql-server mysql-client mysql-common
 
+    apt-get remove --purge apache2.2-common
+    apt-get install --reinstall apache2
+
     apt-get remove --purge php*
     apt-get install --reinstall php5
 
+    apt-get install --reinstall libapache2-mod-php5
+
     apt-get install --reinstall phpmyadmin
+
 
 ## <a name="basic-ssh"></a>SSH
 
