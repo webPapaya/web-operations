@@ -29,7 +29,6 @@ title: Web Operations
 ## Server
 
 ### Setup
-'''
 
     cd ~/projects
     mkdir mean
@@ -127,7 +126,10 @@ title: Web Operations
     pre-stop script
         rm /var/run/app-server.pid
         echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Stopping" >> /var/log/app-server.log
-'''
+    end script
+
+    cd /etc/init
+    initctl reload-configuration
 
 ### Coninous Integration
 

@@ -8,8 +8,11 @@
 
         <!-- CSS -->
         <link rel="stylesheet" href="css/main.css">
+
+        <!-- JS -->
+        <script src="bower_components/requirejs/require.js" data-main="js/main.js"></script>
     </head>
-    <body data-spy="scroll" data-target=".wo-nav-sidebar" data-offset="100">
+    <body>
         <div class="jumbotron">
             <div class="container">
                 <h1>Web Operations</h1>
@@ -36,13 +39,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3 wo-nav-sidebar">
+                <div id="sidebar" class="col-sm-3 wo-nav-sidebar">
                     {% include nav.html %}
                 </div>
             </div>
         </div>
-
-        <script src="bower_components/requirejs/require.js" data-main="js/main.js"></script>
-
     </body>
 </html>
