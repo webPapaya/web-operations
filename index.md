@@ -534,6 +534,22 @@ Sie können Cron nutzen um Aufgaben zu periodischen Zeitpunkten zu erledigen. Ei
 Nutzerstatistiken. Sie können in vielen Fällen keine Statistik in Echtzeit erzeugen und generieren daher zu bestimmten
 Zeitpunkten eine Zusammenfassung, die von allen Nutzern angesehen werden kann.
 
+### Schedule
+
+All common cron implementations are using the same pattern to schedule a task.
+
+```
+# * * * * *  command to execute
+# ┬ ┬ ┬ ┬ ┬
+# │ │ │ │ │
+# │ │ │ │ │
+# │ │ │ │ └───── day of week (0 - 7) (0 to 6 are Sunday to Saturday, or use names; 7 is Sunday)
+# │ │ │ └────────── month (1 - 12)
+# │ │ └─────────────── day of month (1 - 31)
+# │ └──────────────────── hour (0 - 23)
+# └───────────────────────── min (0 - 59)
+```
+
 ### Crontab
 
 The crontab is the classic location to put cron tasks. On Ubuntu this is not the default location for crontabs
@@ -549,7 +565,7 @@ crontab -e
 * * * * * /usr/bin/php -f /home/www/projects/app/cron.php
 ```
 
-### cron.d
+### cron.d (anacron)
 
 A typical *cron.d* file consists of 3 parts. The scheduler, the user which should execute the script and the path
 to the executable with all options.
@@ -605,22 +621,155 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 ```
 
 ## <a name="basic-log"></a>Log
-### Log Rotate
+
+### logrotate.d
+
+``` bash
+# GitLab logrotate settings
+# based on: http://stackoverflow.com/a/4883967
+/home/git/gitlab/log/*.log {
+    weekly
+    missingok
+    rotate 52
+    compress
+    delaycompress
+    notifempty
+    copytruncate
+}
+
+/home/git/gitlab-shell/gitlab-shell.log {
+    weekly
+    missingok
+    rotate 52
+    compress
+    delaycompress
+    notifempty
+    copytruncate
+}
+```
 https://www.digitalocean.com/community/articles/how-to-manage-log-files-with-logrotate-on-ubuntu-12-10
 
 ## <a name="basic-upstart"></a>Upstart
-### Am Beispiel node.js
+
+### Beispiel
+
+``` bash
+# chess server
+#
+# description "node.js chess server"
+# author      "Hannes Moser"
+
+start on startup
+stop on shutdown
+
+script
+    echo $$ > /var/run/chess-server.pid
+    exec sudo -u www-data /usr/bin/node /var/lib/jenkins/jobs/chess/workspace/build/app.js >> /var/log/chess-server.log 2>&1
+end script
+
+pre-start script
+    # Date format same as (new Date()).toISOString() for consistency
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Starting" >> /var/log/chess-server.log
+end script
+
+pre-stop script
+    rm /var/run/chess-server.pid
+    echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Stopping" >> /var/log/chess-server.log
+end script
+```
 
 ## <a name="basic-proxies"></a>Proxies
-### Proxy requests via Apache zu Node.js server
+
+### Beispiel
+
+``` bash
+<VirtualHost *:80>
+    ServerAdmin webop@vm181.webops.mediacube.at
+    ServerName vm181.webops.mediacube.at
+
+    ProxyPass         / http://localhost:3000/
+    ProxyPassReverse  / http://localhost:3000/
+    ProxyRequests     Off
+
+    ErrorLog /var/log/apache2/error.log
+
+    LogLevel warn
+
+    CustomLog /var/log/apache2/ssl_access.log combined
+</VirtualHost>
+```
 
 ## <a name="basic-mail"></a>Mail
 
 ### ISPmail Tutorial(s)
 https://workaround.org/ispmail
 
-## Nette Kleinigkeiten
+## <a name="basic-utilities"></a>Utilities
+
+### top
+
+Gives you system stats and lists all processes.
+
+``` bash
+top
+```
+
 ### Figlets
+
+Install the figlet package.
+
+``` bash
+apt-get install figlet
+```
+
+Create a new figlet.
+
+``` bash
+# Create figlet
+figlet vm181.webops
+```
+
+Select and copy the output to use it somewhere else.
+
+```
+                 _  ___  _              _
+__   ___ __ ___ / |( _ )/ |_      _____| |__   ___  _ __  ___
+\ \ / / '_ ` _ \| |/ _ \| \ \ /\ / / _ \ '_ \ / _ \| '_ \/ __|
+ \ V /| | | | | | | (_) | |\ V  V /  __/ |_) | (_) | |_) \__ \
+  \_/ |_| |_| |_|_|\___/|_(_)_/\_/ \___|_.__/ \___/| .__/|___/
+                                                   |_|
+```
+
+### Message of the day
+
+Create a new file.
+
+``` bash
+vim /etc/motd.tail
+```
+
+Write something and save the file.
+
+``` bash
+This is the message of the day.
+```
+
+Now quit the terminal session and login again.
+You should see some text with system metadata and your message appended at the end of the block.
+
+### tail
+
+A nice program you can use to read frequently updated logs during a server session.
+
+``` bash
+# Get last lines of log and all newly added
+tail -f /var/log/apache2/error.log
+```
+
+``` bash
+# Get the last 100 lines and all newly added
+tail -n 100 -f /var/log/apache2/error.log
+```
 
 ## <a name="basic-images"></a>Images
 
