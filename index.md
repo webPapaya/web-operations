@@ -360,7 +360,7 @@ Fall Sie selbst so ein System betreiben möchten, gibt es in der Linuxwelt ein s
 
 ### Globale DNS Server
 
-Normalerweise bekommen Sie von Ihrem ISP die Nameserver mittels DHCP automatisch mitgeteilt. Im Falle des Falles, können
+Normalerweise bekommen Sie von Ihrem <abbr title="Internet Service Provider">ISP</abbr> die Nameserver mittels DHCP automatisch mitgeteilt. Im Falle des Falles, können
 Sie jedoch jederzeit selbst bestimmen woher Sie Ihre DNS Auflösung beziehen wollen. Einen der bekanntesten DNS Server
 wird von Google betrieben.
 
@@ -512,7 +512,7 @@ CONFIG_mysql_dump_host='localhost'
 #### LVM Snapshots
 
 Für professionelle und vor allem größere Anwendungen empfiehlt es sich, dem Problem eine Ebene tiefer zu anzugehen.
-Ein unter Linux sehr verbreitetes Programm zur Organisation von Massenspeicher ist [LVM](http://en.wikipedia.org/wiki/Logical_Volume_Manager).
+Ein unter Linux sehr verbreitetes Programm zur Organisation von Massenspeicher ist [<abbr title="Logical Volume Manager">LVM</abbr>](http://en.wikipedia.org/wiki/Logical_Volume_Manager).
 
 Eine Funktion von LVM eignet sich dabei hervorragend um Backups des Dateisystems zu bestimmen Zeitpunkten zu erstellen.
 Damit können Sie also tatsächlich Ihre Datenbank wieder als einfache Datei betrachten und dementsprechend ein einfaches
@@ -525,21 +525,96 @@ Backup an dieser Stelle vorzunehmen.
 Eine detailierte Anleitung zur Installation von LVM und Backups von MySQL mit Hilfe von Snapshots finden Sie
 [hier](http://www.lullabot.com/blog/article/mysql-backups-using-lvm-snapshots).
 
-## Cronjob
-### Crontab
-### /etc/cron.d
+## <a name="basic-cron"></a>Cron
 
-## Log
+> Cron is a system daemon used to execute desired tasks (in the background) at designated times.
+
+Eine genaue Einführung in Cron finden Sie [hier](https://help.ubuntu.com/community/CronHowto).
+Sie können Cron nutzen um Aufgaben zu periodischen Zeitpunkten zu erledigen. Ein bekanntes Beispiel sind etwa
+Nutzerstatistiken. Sie können in vielen Fällen keine Statistik in Echtzeit erzeugen und generieren daher zu bestimmten
+Zeitpunkten eine Zusammenfassung, die von allen Nutzern angesehen werden kann.
+
+### Crontab
+
+The crontab is the classic location to put cron tasks. On Ubuntu this is not the default location for crontabs
+anymore and you should use the */etc/cron.d/* directory to put your tasks. Anyway the crontab does work the same
+as all cron definitions work. You add a schedule and a task to the file.
+
+``` bash
+crontab -e
+```
+
+``` bash
+# Execute cron tasks of app project every minute
+* * * * * /usr/bin/php -f /home/www/projects/app/cron.php
+```
+
+### cron.d
+
+A typical *cron.d* file consists of 3 parts. The scheduler, the user which should execute the script and the path
+to the executable with all options.
+
+``` bash
+0 1 * * * webop /usr/bin/automysqlbackup /etc/automysqlbackup/host.conf
+```
+
+#### Special strings
+
+Someone may use special strings instead of the **m h dom mon dow** format.
+
+``` bash
+@daily ntpdate -s time.nist.gov
+```
+
+##### List of strings
+
+| String    | Description                                       |
+| --------- | ------------------------------------------------- |
+| @reboot   | Run once on startup                               |
+| @yearly   | Run once a year, "0 0 1 1 *"                      |
+| @annually | alias for @yearly                                 |
+| @monthly  | Run once a month, "0 0 1 * *"                     |
+| @weekly   | Run once a week, "0 0 * * 0"                      |
+| @daily    | Run once a day, "0 0 * * *"                       |
+| @midnight | alias for @daily                                  |
+| @hourly   | Run once an hour, "0 * * * *"                     |
+
+#### cron.(hourly|daily|weekly|daily)
+
+There are also predefined directories within */etc* that someone might use to execute tasks periodically.
+You can put a shell script into */etc/cron.daily* and it will be executed once a day.
+
+As of Ubuntu 12.04, the execution of those scripts is controlled by the */etc/crontab* file.
+
+``` bash
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user  command
+17 *    * * *   root    cd / && run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+#
+```
+
+## <a name="basic-log"></a>Log
 ### Log Rotate
 https://www.digitalocean.com/community/articles/how-to-manage-log-files-with-logrotate-on-ubuntu-12-10
 
-## Upstart
+## <a name="basic-upstart"></a>Upstart
 ### Am Beispiel node.js
 
-## Proxies
+## <a name="basic-proxies"></a>Proxies
 ### Proxy requests via Apache zu Node.js server
 
-## Mail
+## <a name="basic-mail"></a>Mail
 
 ### ISPmail Tutorial(s)
 https://workaround.org/ispmail
@@ -547,11 +622,12 @@ https://workaround.org/ispmail
 ## Nette Kleinigkeiten
 ### Figlets
 
-## Images
+## <a name="basic-images"></a>Images
 
 [backuppc-1]: /img/backuppc-1.png "backuppc"
 
 ## Abbrevations
 
-*[ISP]: Internet Service Provider
-*[LVM]: Logical Volume Manager
+*[ISP]:     Internet Service Provider
+
+*[LVM]:     Logical Volume Manager

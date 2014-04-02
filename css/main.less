@@ -20,6 +20,9 @@ table {
 
 h2 {
     margin-top: 4em;
+    padding-bottom: 0.4em;
+    margin-bottom: 0.4em;
+    border-bottom: 1px solid #ddd;
 }
 
 img {
@@ -62,9 +65,12 @@ img {
         border-left: 2px solid #fff;
 
         &:hover, &:active, &:focus {
-            border-left: 1px solid @border-color;
+            border-left: 2px solid @border-color;
 
             background: none;
+        }
+        &:hover {
+            border-left-color: lighten(@border-color, 40%);
         }
     }
     li.active > a {
@@ -80,11 +86,14 @@ img {
         font-size: 1em;
 
         &:hover, &:active, &:focus {
-            border-left: 1px solid @border-color;
+            border-left: 2px solid @border-color;
 
             color: darken(#888, 20%);
 
             background: none;
+        }
+        &:hover {
+            border-left-color: lighten(@border-color, 40%);
         }
     }
     .nav > li.active > a {

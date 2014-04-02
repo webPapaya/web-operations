@@ -6,14 +6,12 @@ define( ['jquery', 'bootstrap'], function ( $ ) {
     } );
 
     // Add scrollspy
-    $( 'body' )
-        .scrollspy( { target: '#sidebar' } )
-        .on( 'activate.bs.scrollspy', function() {
-            console.log( 'activate scrollspy' );
-        } );
-
     setTimeout( function() {
-        $('body').scrollspy( 'refresh' );
-    }, 0 );
+        $( 'body' )
+            .scrollspy( { target: '#sidebar' } )
+            .on( 'activate.bs.scrollspy', function() {
+                console.log( 'activate scrollspy' );
+            } );
+    }, 100 );
 
 } );
