@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Web Operations
-nav: nav-mean.html
+nav: nav-lamp.html
 ---
 
 # <a name="basic"></a>Install

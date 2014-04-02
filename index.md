@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Web Operations
+nav: nav-index.html
 ---
 
 # <a name="basic"></a>Einführung
