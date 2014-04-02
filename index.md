@@ -774,7 +774,7 @@ tail -n 100 -f /var/log/apache2/error.log
 
 ## <a name="basic-images"></a>Images
 
-[backuppc-1]: /img/backuppc-1.png "backuppc"
+[backuppc-1]: img/backuppc-1.png "backuppc"
 
 ## Abbrevations
 
