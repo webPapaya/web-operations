@@ -226,6 +226,22 @@ apt-get install --reinstall libapache2-mod-php5
 apt-get install --reinstall phpmyadmin
 ```
 
+#### Upgrade the system
+
+Ubuntu releases a new LTS (Long Time Support) version of their operating system from time to time.
+If you want to upgrade a whole system you have to take care of several steps:
+
+* Backup everything
+* If you SSH to your server, your connection might get cut (check firewall for alternative SSH port)
+* Be aware that some software might not be available anymore after the upgrade
+* Expect downtime for your services
+* If you can do a fresh install -> DO IT!
+* Otherwise use the following command to upgrade:
+
+``` bash
+do-release-upgrade
+```
+
 ## <a name="basic-ssh"></a>SSH
 
 > Secure Shell oder SSH bezeichnet sowohl ein Netzwerkprotokoll als auch entsprechende Programme, mit deren Hilfe man auf eine sichere Art und Weise eine verschlüsselte Netzwerkverbindung mit einem entfernten Gerät herstellen kann.
