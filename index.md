@@ -772,12 +772,8 @@ tail -f /var/log/apache2/error.log
 tail -n 100 -f /var/log/apache2/error.log
 ```
 
-## <a name="basic-images"></a>Images
-
 [backuppc-1]: img/backuppc-1.png "backuppc"
 
-## Abbrevations
 
 *[ISP]:     Internet Service Provider
-
 *[LVM]:     Logical Volume Manager

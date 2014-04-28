@@ -4,135 +4,120 @@ title: Web Operations
 nav: nav-rails.html
 ---
 
-# <a name="basic"></a>Install
+# <a name="basic"></a>Packages
 ---
 
-    apt-get update
-    apt-get upgrade
+https://www.digitalocean.com/community/articles/how-to-install-ruby-on-rails-on-ubuntu-12-04-lts-precise-pangolin-with-rvm
 
-    which node
+# Ruby with RVM
 
-    apt-get install nodejs
-    which node
-    node -v
+``` bash
+# Update system
+apt-get update
 
-    which npm
+# Get curl
+apt-get install curl
 
-    apt-get install npm
-    which npm
-    npm -v
+# Install RVM + Ruby (ATTENTION! -> as user, not with sudo)
+\curl -sSL https://get.rvm.io | bash -s stable --ruby
 
-    # http://slopjong.de/2012/10/31/how-to-install-the-latest-nodejs-in-ubuntu/
-    # http://askubuntu.com/questions/49390/how-do-i-install-the-latest-version-of-node-js
+source ~/.rvm/scripts/rvm
 
-    apt-get install mongodb
+rvm requirements
 
-## Server
+rvm install ruby
 
-### Setup
+rvm use ruby --default
 
-    cd ~/projects
-    mkdir mean
+rvm rubygems current
+```
 
-    touch package.json
-    vim package.json
+## Apache + Rails
 
-    npm init
-    vim package.json
+``` bash
+# Build Tools
+apt-get install build-essential
 
-    # https://www.npmjs.org/doc/cli/npm-install.html
-    # https://www.npmjs.org/
+# Apache dev headers
+apt-get install apache2-prefork-dev
 
-    npm install
+# CURL with dev headers
+apt-get install libcurl4-openssl-dev
 
-    touch app.js
-    vim app.js
+# Passenger
+gem install passenger
 
-    var express = require( 'express' );
-    var app = express();
+# Build
+passenger-install-apache2-module
 
-    app.get( '/', function( req, res ) {
-      res.send( 'Hello World' );
-    });
+# Read the instructions carefully
+```
 
-    app.listen(3000);
+## Create RAILS app
 
-    node app.js
+``` bash
+cd ~/projects
+rails new ./ror
+```
 
-    ufw allow 3000
+## Apache + Rails (Reverse Proxy)
 
-    which nodemon
-    npm install -g nodemon
+``` bash
+# Start Rails
+rails server
 
-    # Dev only
-    nodemon app.js
+# Proxy config
+<VirtualHost *:80>
+        ServerAdmin hmoser.lba@fh-salzburg.ac.at
+        ServerName vm199.webops.mediacube.at
 
-    # Proxy requests over Apache
-    <VirtualHost *:80>
-            ServerAdmin box@dovigo.com
-            ServerName vm181.webops.mediacube.at
+        ProxyRequests Off
+        ProxyPass /app http://127.0.0.1:3000/ retry=1
+        ProxyPassReverse /app http://127.0.0.1:3000
 
-            ProxyRequests Off
-            ProxyPass / http://127.0.0.1:3000/ retry=1
-            ProxyPassReverse / http://127.0.0.1:3000
-            ProxyPass / ws://127.0.0.1:3000/ retry=1
-            ProxyPassReverse / ws://127.0.0.1:3000/
+</VirtualHost>
 
-            ErrorLog /var/log/apache2/error.log
+# Reload apache config
+service apache2 reload
+```
 
-            # Possible values include: debug, info, notice, warn, error, crit,
-            # alert, emerg.
-            LogLevel info
+## Apache Module passenger
 
-            CustomLog /var/log/apache2/access.log combined
+``` bash
+cd /etc/apache2/mods-available/
+touch passenger.conf
+touch passenger.load
 
-    </VirtualHost>
+vim passenger.conf
+<IfModule mod_passenger.c>
+    PassengerRoot /home/webop/.rvm/gems/ruby-2.1.1/gems/passenger-4.0.41
+    PassengerDefaultRuby /home/webop/.rvm/gems/ruby-2.1.1/wrappers/ruby
+</IfModule>
 
-    # cluster.js
-    require( 'cluster' );
+vim passenger.load
+LoadModule passenger_module /home/webop/.rvm/gems/ruby-2.1.1/gems/passenger-4.0.41/buildout/apache2/mod_passenger.so
 
-    if (cluster.isMaster && process.env.NODE_ENV === 'production') {
-        for (core = 0; core < maxCores; core++) {
-            cluster.fork();
-        }
-    } else {
-        ... your code goes here
-    }
+a2enmod passenger
 
-    # https://www.npmjs.org/package/mongodb
-    # https://www.npmjs.org/package/mongoose
-    # Add counter
+service apache2 restart
+```
 
-    # upstart
-    # app server
-    #
-    # description "node.js app server"
-    # author      "Hannes Moser"
+# Apache VHost
 
-    start on startup
-    stop on shutdown
+``` bash
+<VirtualHost *:80>
+        ServerAdmin hmoser.lba@fh-salzburg.ac.at
+        ServerName vm199.webops.mediacube.at
 
-    script
-        export HOME="/root"
+        DocumentRoot /home/webop/projects/ror/public # Public is IMPORTANT!
+        <Directory /home/webop/projects/ror/pubic>
+                AllowOverride All
+                Options -MultiViews
+        </Directory>
 
-        echo $$ > /var/run/app-server.pid
-        exec sudo -u www-data /usr/bin/node /home/projects/mean/app.js >> /var/log/app-server.log 2>&1
-    end script
+</VirtualHost>
+```
 
-    pre-start script
-        # Date format same as (new Date()).toISOString() for consistency
-        echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Starting" >> /var/log/app-server.log
-    end script
-
-    pre-stop script
-        rm /var/run/app-server.pid
-        echo "[`date -u +%Y-%m-%dT%T.%3NZ`] (sys) Stopping" >> /var/log/app-server.log
-    end script
-
-    cd /etc/init
-    initctl reload-configuration
-
-### Coninous Integration
-
-#### Tests
-#### Jira
+``` bash
+service apache2 restart
+```
