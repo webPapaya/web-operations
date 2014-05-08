@@ -109,8 +109,8 @@ nav: nav-mean.html
     # description "node.js app server"
     # author      "Hannes Moser"
 
-    start on startup
-    stop on shutdown
+    start on runlevel [2345]
+    stop on runlevel [06]
 
     script
         export HOME="/root"
